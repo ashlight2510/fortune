@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>오늘의 한 줄 운세</title>
+
+    <meta
+      name="description"
+      content="기분만 고르면 바로 나오는 오늘의 한 줄 운세"
+    />
+    <meta name="keywords" content="오늘의 운세, 한 줄 운세, 심리 테스트" />
+    <link rel="canonical" href="https://fortune.example.com" />
+
+    <meta property="og:title" content="오늘의 한 줄 운세" />
+    <meta property="og:description" content="기분만 고르면 바로 확인" />
+    <meta
+      property="og:image"
+      content="https://dummyimage.com/1200x630/0f172a/ffffff&text=Today+Fortune"
+    />
+    <link rel="icon" type="image/svg+xml" href="static/favicon.svg" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body
+    class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-6"
+  >
+    <div class="max-w-md w-full space-y-6">
+      <div class="text-center space-y-2">
+        <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
+          기분에 따라 보는
+        </p>
+        <h1 class="text-2xl font-bold">🔮 오늘의 한 줄 운세</h1>
+        <p class="text-sm text-slate-400">
+          오늘은
+          <span class="text-emerald-300 font-semibold" data-day-name></span>,
+          지금 기분을 골라 주세요.
+        </p>
+      </div>
+
+      <form class="space-y-4">
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" data-mood="good" class="btn">😊 좋음</button>
+          <button type="button" data-mood="meh" class="btn">😐 보통</button>
+          <button type="button" data-mood="bad" class="btn">😵 안좋음</button>
+        </div>
+      </form>
+
+      <div id="result" class="min-h-[200px] transition-all"></div>
+
+      <a
+        href="https://funnyfunny.cloud"
+        class="block text-center text-sm text-slate-400 underline underline-offset-4 hover:text-slate-200 transition"
+      >
+        다른 서비스 보기 →
+      </a>
+    </div>
+
+    <style>
+      .btn {
+        width: 100%;
+        padding: 0.9rem 0.75rem;
+        border-radius: 14px;
+        background: #1e293b;
+        color: #e2e8f0;
+        font-weight: 700;
+        transition: background 150ms ease, transform 150ms ease;
+      }
+      .btn:hover {
+        background: #273449;
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        background: #1a2536;
+        transform: translateY(0);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.25s ease-out;
+      }
+    </style>
+
+    <script>
+      const fortunes = {
+        good: [
+          "오늘은 작은 선택이 큰 방향을 바꿉니다.",
+          "괜히 한 번 더 확인한 일이 당신을 살립니다.",
+          "오늘은 무리하지 않아도 충분한 날입니다.",
+        ],
+        meh: [
+          "오늘은 속도를 늦출수록 손해를 피합니다.",
+          "괜히 나서지 않는 게 이득인 하루입니다.",
+          "지금은 버티는 게 곧 이기는 겁니다.",
+        ],
+        bad: [
+          "오늘은 반응하지 않는 것이 최고의 전략입니다.",
+          "오늘의 실수는 말에서 시작됩니다.",
+          "지금은 참는 사람이 이깁니다.",
+        ],
+      };
+
+      const taboos = [
+        "즉흥적인 약속 잡기",
+        "감정 섞인 메시지 보내기",
+        "피곤한 상태에서 결정하기",
+      ];
+
+      const luckies = ["메모 하나 남기기", "산책 10분", "미뤄둔 일 하나 정리"];
+
+      const typeNames = {
+        good: "빛나는 추진러",
+        meh: "침묵형 인간",
+        bad: "방어모드 전략가",
+      };
+
+      const moodLabels = {
+        good: "😊 좋음",
+        meh: "😐 보통",
+        bad: "😵 안좋음",
+      };
+
+      const weekday = new Intl.DateTimeFormat("ko-KR", {
+        weekday: "long",
+      }).format(new Date());
+      document.querySelector("[data-day-name]").textContent = weekday;
+
+      const resultEl = document.getElementById("result");
+      const pick = (list, mood) =>
+        (list[mood] || list.meh || list)[
+          Math.floor(Math.random() * (list[mood]?.length || list.length))
+        ];
+
+      const renderFortune = (moodKey) => {
+        const mood = ["good", "meh", "bad"].includes(moodKey) ? moodKey : "meh";
+        const fortune = pick(fortunes, mood);
+        const taboo = pick(taboos);
+        const lucky = pick(luckies);
+        resultEl.innerHTML = `
+        <div class="rounded-2xl bg-slate-900 p-5 space-y-4 animate-fade-in shadow-lg shadow-slate-900/40">
+          <div class="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-slate-400">
+            <span>${weekday}</span>
+            <span class="px-2 py-1 rounded-full bg-slate-800 text-slate-200">${moodLabels[mood]}</span>
+          </div>
+          <div class="space-y-2">
+            <p class="text-sm text-slate-300">오늘 당신은</p>
+            <p class="text-xl font-bold text-emerald-300">“${typeNames[mood]}”</p>
+            <p class="text-lg font-semibold leading-relaxed text-slate-100">“${fortune}”</p>
+          </div>
+          <div class="space-y-1 text-sm text-slate-300">
+            <div>🚫 오늘의 금기 행동: <span class="text-red-400">${taboo}</span></div>
+            <div>🍀 행운 행동: <span class="text-green-400">${lucky}</span></div>
+          </div>
+          <div class="pt-2 text-sm text-slate-400 border-t border-slate-800">
+            👉 이 운세, 친구는 뭐가 나올까?
+          </div>
+        </div>
+      `;
+      };
+
+      document.querySelectorAll("[data-mood]").forEach((btn) => {
+        btn.addEventListener("click", () => renderFortune(btn.dataset.mood));
+      });
+    </script>
+  </body>
+</html>
