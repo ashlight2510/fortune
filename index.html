@@ -63,7 +63,7 @@
 
   <body
     class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-6"
-  ><div class="max-w-md w-full space-y-6">
+  ><div class="max-w-md w-full space-y-6 mx-auto">
       <div class="text-center space-y-2">
         <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
           기분에 따라 보는
@@ -183,7 +183,7 @@
         const taboo = pick(taboos);
         const lucky = pick(luckies);
         resultEl.innerHTML = `
-        <div class="rounded-2xl bg-slate-900 p-5 space-y-4 animate-fade-in shadow-lg shadow-slate-900/40">
+        <div class="rounded-2xl bg-slate-900 p-5 space-y-4 animate-fade-in shadow-lg shadow-slate-900/40 text-center">
           <div class="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-slate-400">
             <span>${weekday}</span>
             <span class="px-2 py-1 rounded-full bg-slate-800 text-slate-200">${moodLabels[mood]}</span>
@@ -208,16 +208,20 @@
         btn.addEventListener("click", () => renderFortune(btn.dataset.mood));
       });
     </script>
-  
-<ins class="adsbygoogle"
-     style="display:block; text-align:center"
-     data-ad-format="fluid"
-     data-ad-layout-key="-6t+ed+2i-1n-4w"
-     data-ad-client="ca-pub-1204894220949193"
-     data-ad-slot="7300458753"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    
-</body>
+
+    <div class="adsense-block">
+      <ins
+        class="adsbygoogle"
+        style="display:block; text-align:center"
+        data-ad-format="fluid"
+        data-ad-layout-key="-6t+ed+2i-1n-4w"
+        data-ad-client="ca-pub-1204894220949193"
+        data-ad-slot="7300458753"
+      ></ins>
+    </div>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+  </body>
 </html>
