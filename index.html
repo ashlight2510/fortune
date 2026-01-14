@@ -65,22 +65,29 @@
     class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-6"
   ><div class="max-w-md w-full space-y-6 mx-auto">
       <div class="text-center space-y-2">
-        <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
+        <p class="text-xs uppercase tracking-[0.2em] text-slate-400" data-i18n="tagline">
           기분에 따라 보는
         </p>
-        <h1 class="text-2xl font-bold">🔮 오늘의 한 줄 운세</h1>
+        <h1 class="text-2xl font-bold" data-i18n="title">🔮 오늘의 한 줄 운세</h1>
         <p class="text-sm text-slate-400">
-          오늘은
+          <span data-i18n="introLead">오늘은</span>
           <span class="text-emerald-300 font-semibold" data-day-name></span>,
-          지금 기분을 골라 주세요.
+          <span data-i18n="introTail">지금 기분을 골라 주세요.</span>
         </p>
+      </div>
+
+      <div class="flex justify-center">
+        <div class="lang-switch" role="tablist" aria-label="Language switcher">
+          <button type="button" data-lang="ko" class="active">한국어</button>
+          <button type="button" data-lang="en">English</button>
+        </div>
       </div>
 
       <form class="space-y-4">
         <div class="grid grid-cols-3 gap-2">
-          <button type="button" data-mood="good" class="btn">😊 좋음</button>
-          <button type="button" data-mood="meh" class="btn">😐 보통</button>
-          <button type="button" data-mood="bad" class="btn">😵 안좋음</button>
+          <button type="button" data-mood="good" class="btn" data-i18n="moodGood">😊 좋음</button>
+          <button type="button" data-mood="meh" class="btn" data-i18n="moodMeh">😐 보통</button>
+          <button type="button" data-mood="bad" class="btn" data-i18n="moodBad">😵 안좋음</button>
         </div>
       </form>
 
@@ -89,9 +96,7 @@
       <a
         href="https://funnyfunny.cloud"
         class="block text-center text-sm text-slate-400 underline underline-offset-4 hover:text-slate-200 transition"
-      >
-        다른 서비스 보기 →
-      </a>
+      data-i18n="moreServices">다른 서비스 보기 →</a>
     </div>
 
     <style>
@@ -125,51 +130,159 @@
       .animate-fade-in {
         animation: fadeIn 0.25s ease-out;
       }
+      .lang-switch {
+        display: inline-flex;
+        gap: 6px;
+        padding: 4px;
+        border-radius: 999px;
+        background: #0f172a;
+        border: 1px solid #1f2937;
+      }
+      .lang-switch button {
+        border: none;
+        background: transparent;
+        color: #94a3b8;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        letter-spacing: 0.08em;
+      }
+      .lang-switch button.active {
+        background: #0ea5e9;
+        color: #0b1120;
+      }
     </style>
 
     <script>
-      const fortunes = {
-        good: [
-          "오늘은 작은 선택이 큰 방향을 바꿉니다.",
-          "괜히 한 번 더 확인한 일이 당신을 살립니다.",
-          "오늘은 무리하지 않아도 충분한 날입니다.",
-        ],
-        meh: [
-          "오늘은 속도를 늦출수록 손해를 피합니다.",
-          "괜히 나서지 않는 게 이득인 하루입니다.",
-          "지금은 버티는 게 곧 이기는 겁니다.",
-        ],
-        bad: [
-          "오늘은 반응하지 않는 것이 최고의 전략입니다.",
-          "오늘의 실수는 말에서 시작됩니다.",
-          "지금은 참는 사람이 이깁니다.",
-        ],
+      const translations = {
+        ko: {
+          metaTitle: "오늘의 한 줄 운세",
+          tagline: "기분에 따라 보는",
+          title: "🔮 오늘의 한 줄 운세",
+          introLead: "오늘은",
+          introTail: "지금 기분을 골라 주세요.",
+          moodGood: "😊 좋음",
+          moodMeh: "😐 보통",
+          moodBad: "😵 안좋음",
+          moreServices: "다른 서비스 보기 →",
+          youAre: "오늘 당신은",
+          tabooLabel: "🚫 오늘의 금기 행동:",
+          luckyLabel: "🍀 행운 행동:",
+          shareHint: "👉 이 운세, 친구는 뭐가 나올까?",
+          fortunes: {
+            good: [
+              "오늘은 작은 선택이 큰 방향을 바꿉니다.",
+              "괜히 한 번 더 확인한 일이 당신을 살립니다.",
+              "오늘은 무리하지 않아도 충분한 날입니다.",
+            ],
+            meh: [
+              "오늘은 속도를 늦출수록 손해를 피합니다.",
+              "괜히 나서지 않는 게 이득인 하루입니다.",
+              "지금은 버티는 게 곧 이기는 겁니다.",
+            ],
+            bad: [
+              "오늘은 반응하지 않는 것이 최고의 전략입니다.",
+              "오늘의 실수는 말에서 시작됩니다.",
+              "지금은 참는 사람이 이깁니다.",
+            ],
+          },
+          taboos: [
+            "즉흥적인 약속 잡기",
+            "감정 섞인 메시지 보내기",
+            "피곤한 상태에서 결정하기",
+          ],
+          luckies: ["메모 하나 남기기", "산책 10분", "미뤄둔 일 하나 정리"],
+          typeNames: {
+            good: "빛나는 추진러",
+            meh: "침묵형 인간",
+            bad: "방어모드 전략가",
+          },
+          moodLabels: {
+            good: "😊 좋음",
+            meh: "😐 보통",
+            bad: "😵 안좋음",
+          },
+        },
+        en: {
+          metaTitle: "Today in One Line",
+          tagline: "Pick by Your Mood",
+          title: "🔮 Today in One Line",
+          introLead: "Today is",
+          introTail: "pick how you feel right now.",
+          moodGood: "😊 Good",
+          moodMeh: "😐 Meh",
+          moodBad: "😵 Bad",
+          moreServices: "View other services →",
+          youAre: "Today you are",
+          tabooLabel: "🚫 Today's no-go:",
+          luckyLabel: "🍀 Lucky move:",
+          shareHint: "👉 What will your friend get?",
+          fortunes: {
+            good: [
+              "A small choice changes the whole direction today.",
+              "That extra check saves you more than you think.",
+              "You are doing enough even without pushing today.",
+            ],
+            meh: [
+              "Slowing down helps you avoid loss today.",
+              "Staying low-key is the smarter move today.",
+              "Holding steady is winning right now.",
+            ],
+            bad: [
+              "Not reacting is the best strategy today.",
+              "Today's mistakes start with words.",
+              "The patient one wins today.",
+            ],
+          },
+          taboos: [
+            "Making impulsive plans",
+            "Sending an emotional message",
+            "Deciding while exhausted",
+          ],
+          luckies: ["Leave one quick note", "10-minute walk", "Clear one backlog"],
+          typeNames: {
+            good: "Bright Momentum Builder",
+            meh: "Quiet Navigator",
+            bad: "Defense-Mode Strategist",
+          },
+          moodLabels: {
+            good: "😊 Good",
+            meh: "😐 Meh",
+            bad: "😵 Bad",
+          },
+        },
       };
 
-      const taboos = [
-        "즉흥적인 약속 잡기",
-        "감정 섞인 메시지 보내기",
-        "피곤한 상태에서 결정하기",
-      ];
+      const defaultLang = "en";
+      const supportedLangs = ["ko", "en"];
+      let currentLang = defaultLang;
+      let currentMood = null;
 
-      const luckies = ["메모 하나 남기기", "산책 10분", "미뤄둔 일 하나 정리"];
+      function getPack() {
+        return translations[currentLang] || translations.ko;
+      }
 
-      const typeNames = {
-        good: "빛나는 추진러",
-        meh: "침묵형 인간",
-        bad: "방어모드 전략가",
-      };
+      function t(key) {
+        const pack = getPack();
+        return pack[key] ?? translations.ko[key] ?? key;
+      }
 
-      const moodLabels = {
-        good: "😊 좋음",
-        meh: "😐 보통",
-        bad: "😵 안좋음",
-      };
+      function updateWeekday() {
+        const locale = currentLang === "en" ? "en-US" : "ko-KR";
+        const weekday = new Intl.DateTimeFormat(locale, {
+          weekday: "long",
+        }).format(new Date());
+        document.querySelector("[data-day-name]").textContent = weekday;
+      }
 
-      const weekday = new Intl.DateTimeFormat("ko-KR", {
-        weekday: "long",
-      }).format(new Date());
-      document.querySelector("[data-day-name]").textContent = weekday;
+      function applyTranslations() {
+        document.title = t("metaTitle");
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          el.textContent = t(el.dataset.i18n);
+        });
+      }
 
       const resultEl = document.getElementById("result");
       const pick = (list, mood) =>
@@ -178,27 +291,29 @@
         ];
 
       const renderFortune = (moodKey) => {
+        currentMood = moodKey;
         const mood = ["good", "meh", "bad"].includes(moodKey) ? moodKey : "meh";
-        const fortune = pick(fortunes, mood);
-        const taboo = pick(taboos);
-        const lucky = pick(luckies);
+        const pack = getPack();
+        const fortune = pick(pack.fortunes, mood);
+        const taboo = pick(pack.taboos);
+        const lucky = pick(pack.luckies);
         resultEl.innerHTML = `
         <div class="rounded-2xl bg-slate-900 p-5 space-y-4 animate-fade-in shadow-lg shadow-slate-900/40 text-center">
           <div class="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-slate-400">
-            <span>${weekday}</span>
-            <span class="px-2 py-1 rounded-full bg-slate-800 text-slate-200">${moodLabels[mood]}</span>
+            <span>${document.querySelector("[data-day-name]").textContent}</span>
+            <span class="px-2 py-1 rounded-full bg-slate-800 text-slate-200">${pack.moodLabels[mood]}</span>
           </div>
           <div class="space-y-2">
-            <p class="text-sm text-slate-300">오늘 당신은</p>
-            <p class="text-xl font-bold text-emerald-300">“${typeNames[mood]}”</p>
+            <p class="text-sm text-slate-300">${t("youAre")}</p>
+            <p class="text-xl font-bold text-emerald-300">“${pack.typeNames[mood]}”</p>
             <p class="text-lg font-semibold leading-relaxed text-slate-100">“${fortune}”</p>
           </div>
           <div class="space-y-1 text-sm text-slate-300">
-            <div>🚫 오늘의 금기 행동: <span class="text-red-400">${taboo}</span></div>
-            <div>🍀 행운 행동: <span class="text-green-400">${lucky}</span></div>
+            <div>${t("tabooLabel")} <span class="text-red-400">${taboo}</span></div>
+            <div>${t("luckyLabel")} <span class="text-green-400">${lucky}</span></div>
           </div>
           <div class="pt-2 text-sm text-slate-400 border-t border-slate-800">
-            👉 이 운세, 친구는 뭐가 나올까?
+            ${t("shareHint")}
           </div>
         </div>
       `;
@@ -207,6 +322,59 @@
       document.querySelectorAll("[data-mood]").forEach((btn) => {
         btn.addEventListener("click", () => renderFortune(btn.dataset.mood));
       });
+
+      function setLang(lang, options = {}) {
+        const nextLang = translations[lang] ? lang : defaultLang;
+        currentLang = nextLang;
+        document.documentElement.lang = nextLang;
+        localStorage.setItem("preferredLang", nextLang);
+        document.querySelectorAll(".lang-switch button").forEach((button) => {
+          button.classList.toggle("active", button.dataset.lang === nextLang);
+        });
+        updateWeekday();
+        applyTranslations();
+        if (currentMood) renderFortune(currentMood);
+        if (options.updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set("lang", nextLang);
+          window.history.replaceState({}, "", url);
+        }
+      }
+
+      function getRegionPreferredLang(fallback = defaultLang) {
+        const intlLocale =
+          typeof Intl === "object" && typeof Intl.DateTimeFormat === "function"
+            ? Intl.DateTimeFormat().resolvedOptions().locale
+            : "";
+        const sources = [
+          ...(navigator.languages || []),
+          navigator.language,
+          navigator.userLanguage,
+          intlLocale,
+        ]
+          .filter(Boolean)
+          .map((locale) => locale.toLowerCase());
+        const hasKorean = sources.some((locale) => locale.startsWith("ko"));
+        return hasKorean ? "ko" : fallback;
+      }
+
+      function detectLang() {
+        const params = new URLSearchParams(window.location.search);
+        const paramLang = params.get("lang");
+        if (supportedLangs.includes(paramLang)) return paramLang;
+        const stored = localStorage.getItem("preferredLang");
+        if (supportedLangs.includes(stored)) return stored;
+        const candidate = getRegionPreferredLang(defaultLang);
+        return supportedLangs.includes(candidate) ? candidate : defaultLang;
+      }
+
+      document.querySelectorAll(".lang-switch button").forEach((button) => {
+        button.addEventListener("click", () => {
+          setLang(button.dataset.lang, { updateUrl: true });
+        });
+      });
+
+      setLang(detectLang(), { updateUrl: false });
     </script>
 
     <div class="adsense-block">
